@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3010;
 
 const { check, validationResult } = require("express-validator");
 
@@ -17,14 +17,14 @@ app.get("/", (req, res) => {
   res.send("Welcome to PokeFight");
 });
 
-// GET  /pokemon  => get the complete list of pokemon
+// GET  /pokemon  => get the complete list of pokemons
 app.get("/pokemon", (req, res) => {
   res.json(jsonData);
 });
 
-// GET  /pokemon/:id  => get a pokemon
+// GET  /pokemon/id/:id  => get a pokemon by id
 app.get(
-  "/pokemon/:id",
+  "/pokemon/id/:id",
   check("id").isInt().withMessage("must be an integer"),
   (req, res) => {
     const errors = validationResult(req);
@@ -37,9 +37,9 @@ app.get(
   }
 );
 
-// GET  /pokemon/:id/:info  => get a pokemon and retrieve the required information
+// GET  /pokemon/id/:id/:info  => get a pokemon and retrieve the required information
 app.get(
-  "/pokemon/:id/:info",
+  "/pokemon/id/:id/:info",
   check("id").isInt().withMessage("must be an integer"),
   check("info")
     .isIn(["name", "type", "base"])
@@ -54,3 +54,12 @@ app.get(
     res.json(pokemon[info]);
   }
 );
+
+// GET  /pokemon/names?start=XXX  => get pokemons whose name starts with XXX
+app.get("/pokemon/names", (req, res) => {
+  const { start } = req.query;
+  const pokemonList = jsonData.filter((item) =>
+    item.name.english.toLowerCase().startsWith(start.toLowerCase())
+  );
+  res.json(pokemonList);
+});
