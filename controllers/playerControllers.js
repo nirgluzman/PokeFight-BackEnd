@@ -2,7 +2,7 @@ const Players = require("../model/Player");
 
 const getAllPlayers = async (req, res) => {
   try {
-    const players = await Players.find();
+    const players = await Players.find().sort({ score: -1 });
     res.status(200).json({
       success: true,
       players,

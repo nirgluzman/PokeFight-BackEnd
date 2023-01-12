@@ -9,7 +9,7 @@ connectDB();
 
 const app = express();
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8090;
 
 const players = require("./routes/playerRoutes");
 const pokemon = require("./routes/pokemonRoutes");
