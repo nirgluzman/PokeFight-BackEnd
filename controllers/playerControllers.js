@@ -47,6 +47,21 @@ const getOnePlayer = async (req, res) => {
   }
 };
 
+const getActivePlayers = async (req, res) => {
+  try {
+    const numActive = await Players.find({ active: true }).count();
+    res.status(200).json({
+      success: true,
+      numActive,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error,
+    });
+  }
+};
+
 const createPlayer = async (req, res) => {
   try {
     const { name } = req.body;
@@ -100,6 +115,7 @@ module.exports = {
   getAllPlayers,
   getTopPlayers,
   getOnePlayer,
+  getActivePlayers,
   createPlayer,
   updatePlayer,
   deletePlayer,

@@ -6,6 +6,7 @@ const {
   getAllPlayers,
   getTopPlayers,
   getOnePlayer,
+  getActivePlayers,
   createPlayer,
   updatePlayer,
   deletePlayer,
@@ -14,5 +15,6 @@ const {
 app.route("/").get(getAllPlayers).post(createPlayer);
 app.route("/:id").get(getOnePlayer).put(updatePlayer).delete(deletePlayer);
 app.route("/top/:num").get(getTopPlayers);
+app.route("/players/active").get(getActivePlayers);
 
 module.exports = app;
