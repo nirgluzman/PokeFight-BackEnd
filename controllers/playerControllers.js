@@ -15,6 +15,23 @@ const getAllPlayers = async (req, res) => {
   }
 };
 
+const getTopPlayers = async (req, res) => {
+  try {
+    const players = await Players.find()
+      .sort({ score: -1 })
+      .limit(req.params.num);
+    res.status(200).json({
+      success: true,
+      players,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error,
+    });
+  }
+};
+
 const getOnePlayer = async (req, res) => {
   try {
     const player = await Players.findById(req.params.id);
@@ -81,6 +98,7 @@ const deletePlayer = async (req, res) => {
 
 module.exports = {
   getAllPlayers,
+  getTopPlayers,
   getOnePlayer,
   createPlayer,
   updatePlayer,

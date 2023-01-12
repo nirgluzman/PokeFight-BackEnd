@@ -4,6 +4,7 @@ const app = express.Router();
 
 const {
   getAllPlayers,
+  getTopPlayers,
   getOnePlayer,
   createPlayer,
   updatePlayer,
@@ -12,5 +13,6 @@ const {
 
 app.route("/").get(getAllPlayers).post(createPlayer);
 app.route("/:id").get(getOnePlayer).put(updatePlayer).delete(deletePlayer);
+app.route("/top/:num").get(getTopPlayers);
 
 module.exports = app;
