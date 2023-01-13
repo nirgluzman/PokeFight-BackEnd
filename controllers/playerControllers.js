@@ -17,7 +17,7 @@ const getAllPlayers = async (req, res) => {
 
 const getTopPlayers = async (req, res) => {
   try {
-    const players = await Players.find()
+    const players = await Players.find({ active: false })
       .sort({ score: -1 })
       .limit(req.params.num);
     res.status(200).json({
